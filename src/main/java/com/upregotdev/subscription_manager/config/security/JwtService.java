@@ -1,10 +1,11 @@
-package com.upregotdev.subscription_manager.config.security; // Ajusta el paquete
+package com.upregotdev.subscription_manager.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,43 +18,44 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
+    // Inyectamos valores desde application.properties
+    @Value("${application.security.jwt.secret-key}")
+    private String secretKey;
 
-    private static final String SECRET_KEY = "MI_CLAVE_SUPER_SECRETA_PARA_FIRMAR_TOKENS_JWT_DEBE_SER_LARGA";
+    @Value("${application.security.jwt.expiration}")
+    private long jwtExpiration;
 
-    // Generar el token para un usuario
-    // Reemplaza el método corto por este:
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> extraClaims = new HashMap<>();
-
-        // Aquí tomamos los roles del usuario (ej: ROLE_USER) y los metemos al mapa
-        extraClaims.put("role", userDetails.getAuthorities());
-
-        return generateToken(extraClaims, userDetails);
+        return generateToken(new HashMap<>(), userDetails);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        // Agregamos roles automáticamente
+        extraClaims.put("roles", userDetails.getAuthorities());
+
+        return buildToken(extraClaims, userDetails, jwtExpiration);
+    }
+
+    private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 horas de validez
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // Validar si el token le pertenece al usuario
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
-    // --- Métodos auxiliares para leer el token ---
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
@@ -75,12 +77,10 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(generateBase64Key());
+        // Asumimos que la clave en properties viene en Base64 o es texto plano lo suficientemente largo.
+        // Si es texto plano simple, usa: Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+        // Si es Base64 (recomendado):
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
-    }
-
-    // Truco: Para que funcione con la clave en texto plano de arriba, simulamos Base64
-    private String generateBase64Key() {
-        return java.util.Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
     }
 }

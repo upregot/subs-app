@@ -1,11 +1,11 @@
-package com.upregotdev.subscription_manager.entities; // Tu paquete
+package com.upregotdev.subscription_manager.entities;
 
-import com.upregotdev.subscription_manager.entities.Role;
-import com.upregotdev.subscription_manager.entities.Subscription;
+import com.fasterxml.jackson.annotation.JsonIgnore; // <--- 1. Importar esto
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString; // <--- 2. Importar esto
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,13 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User implements UserDetails { // <--- ¡CAMBIO CLAVE!
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true) // Importante: username no se puede repetir
+    @Column(unique = true)
     private String username;
 
     private String password;
@@ -33,34 +33,28 @@ public class User implements UserDetails { // <--- ¡CAMBIO CLAVE!
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    // --- CORRECCIÓN AQUÍ ---
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude // <--- VITAL: Evita error LazyInitialization y bucles en logs
+    // @JsonIgnore    // <--- OPCIONAL: Descomenta esto si NO quieres que Swagger muestre la lista de suscripciones al ver el usuario.
     private List<Subscription> subscriptions;
 
-    // --- MÉTODOS DE USER DETAILS (Copia y pega esto) ---
+    // --- MÉTODOS DE USER DETAILS ---
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Convierte tu Enum ROLE_USER en un permiso que Spring entienda
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true; // La cuenta nunca vence
-    }
+    public boolean isAccountNonExpired() { return true; }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return true; // La cuenta nunca se bloquea
-    }
+    public boolean isAccountNonLocked() { return true; }
 
     @Override
-    public boolean isCredentialsNonExpired() {
-        return true; // La contraseña no vence
-    }
+    public boolean isCredentialsNonExpired() { return true; }
 
     @Override
-    public boolean isEnabled() {
-        return true; // El usuario está habilitado
-    }
+    public boolean isEnabled() { return true; }
 }

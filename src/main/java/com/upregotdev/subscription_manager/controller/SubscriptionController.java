@@ -2,7 +2,8 @@ package com.upregotdev.subscription_manager.controller;
 
 import com.upregotdev.subscription_manager.dto.SubscriptionRequest;
 import com.upregotdev.subscription_manager.dto.SubscriptionResponse; // <--- Importante: Usamos el DTO
-import com.upregotdev.subscription_manager.service.SubscriptionService;
+import com.upregotdev.subscription_manager.services.SubscriptionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class SubscriptionController {
     // Crear una suscripción
     @PostMapping
     // CAMBIO: Ahora devuelve ResponseEntity<SubscriptionResponse>
-    public ResponseEntity<SubscriptionResponse> create(@RequestBody SubscriptionRequest request, Principal principal) {
+    public ResponseEntity<SubscriptionResponse> create(@Valid @RequestBody SubscriptionRequest request, Principal principal) {
 
         // El servicio ya nos devuelve el DTO limpio (sin password)
         SubscriptionResponse newSub = subscriptionService.createSubscription(request, principal.getName());
@@ -41,5 +42,14 @@ public class SubscriptionController {
     public ResponseEntity<Void> delete(@PathVariable Long id, Principal principal) {
         subscriptionService.deleteSubscription(id, principal.getName());
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SubscriptionResponse> update(@PathVariable Long id,
+                                                       @Valid @RequestBody SubscriptionRequest request,
+                                                       Principal principal) {
+
+        SubscriptionResponse response = subscriptionService.updateSubscription(id, request, principal.getName());
+        return ResponseEntity.ok(response);
     }
 }

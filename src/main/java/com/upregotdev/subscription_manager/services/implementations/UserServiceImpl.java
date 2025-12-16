@@ -1,41 +1,40 @@
-package com.upregotdev.subscription_manager.service;
+package com.upregotdev.subscription_manager.services.implementations;
 import com.upregotdev.subscription_manager.dto.RegisterRequest;
 import com.upregotdev.subscription_manager.entities.Role;
 import com.upregotdev.subscription_manager.entities.User;
 import com.upregotdev.subscription_manager.repository.UserRepository;
+import com.upregotdev.subscription_manager.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor // Inyecta automáticamente los repositorios (Constructor Injection)
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User registerUser(RegisterRequest request) {
-        // 1. Validar que el usuario no exista
+    public User registerUser(RegisterRequest request) { // CORRECCIÓN 4: Void, no devuelve User
+        // Validación rápida (UX)
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("El nombre de usuario ya existe");
-        }
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("El email ya está registrado");
+            throw new RuntimeException("El usuario ya existe"); // Idealmente usa una excepción personalizada
         }
 
-        // 2. Crear la Entidad a partir del DTO
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-
-        // 3. ENCRIPTAR la contraseña antes de guardarla
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        // 4. Asignar rol por defecto
         user.setRole(Role.USER);
 
-        // 5. Guardar en BD
-        return userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            // CORRECCIÓN 5: Captura la condición de carrera real
+            throw new RuntimeException("El usuario o email ya existe (Error de integridad)");
+        }
+        return user;
     }
 }

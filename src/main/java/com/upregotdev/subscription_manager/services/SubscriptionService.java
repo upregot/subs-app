@@ -1,7 +1,9 @@
-package com.upregotdev.subscription_manager.service;
+package com.upregotdev.subscription_manager.services;
 
 import com.upregotdev.subscription_manager.dto.SubscriptionRequest;
 import com.upregotdev.subscription_manager.dto.SubscriptionResponse; // Importar DTO
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface SubscriptionService {
@@ -11,5 +13,9 @@ public interface SubscriptionService {
 
     List<SubscriptionResponse> getMySubscriptions(String username);
 
+    BigDecimal calcularTotalMensual(String username);
+
     void deleteSubscription(Long id, String username);
+
+    SubscriptionResponse updateSubscription(Long id, SubscriptionRequest request, String username);
 }

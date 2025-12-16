@@ -5,7 +5,7 @@ import com.upregotdev.subscription_manager.dto.LoginRequest;
 import com.upregotdev.subscription_manager.dto.RegisterRequest;
 import com.upregotdev.subscription_manager.config.security.JwtService;
 import com.upregotdev.subscription_manager.repository.UserRepository;
-import com.upregotdev.subscription_manager.service.UserService;
+import com.upregotdev.subscription_manager.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

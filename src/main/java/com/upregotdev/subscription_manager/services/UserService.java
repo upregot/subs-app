@@ -1,4 +1,4 @@
-package com.upregotdev.subscription_manager.service;
+package com.upregotdev.subscription_manager.services;
 
 import com.upregotdev.subscription_manager.dto.RegisterRequest;
 import com.upregotdev.subscription_manager.entities.User;

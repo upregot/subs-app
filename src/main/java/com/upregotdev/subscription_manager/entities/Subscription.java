@@ -1,5 +1,6 @@
 package com.upregotdev.subscription_manager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class Subscription {
     private BigDecimal price; // Siempre usa BigDecimal para dinero, nunca Double
 
     @Column(length = 3)
-    private String currency; // Ej: ARS, USD
+    private String currency;
 
     @Enumerated(EnumType.STRING)
     private Frequency frequency; // MONTHLY, YEARLY...
@@ -45,5 +46,6 @@ public class Subscription {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false) // FK en la base de datos
     @ToString.Exclude // IMPORTANTE: Evita que al imprimir la suscripción se imprima el usuario y cause un bucle infinito
+    @JsonIgnore
     private User user;
 }
