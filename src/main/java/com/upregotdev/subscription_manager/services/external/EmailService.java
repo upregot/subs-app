@@ -28,7 +28,7 @@ public class EmailService {
             // helper.setFrom("noreply@tuapp.com"); // Opcional
 
             mailSender.send(message);
-            log.info("Correo enviado a: {}", to);
+            log.info("Correo eenviado a: {}", to);
 
         } catch (MessagingException e) {
             log.error("Error enviando correo a {}: {}", to, e.getMessage());
