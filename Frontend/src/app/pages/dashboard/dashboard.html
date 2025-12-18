@@ -1,0 +1,72 @@
+<div class="container mt-4">
+  
+  <!-- CABECERA: Título y Botón -->
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2>📊 Mis Suscripciones</h2>
+    <button class="btn btn-primary shadow-sm" routerLink="/subscriptions/new">
+      <i class="bi bi-plus-lg"></i> + Nueva Suscripción
+    </button>
+  </div>
+
+  <div class="row">
+    
+    <!-- ESTADO VACÍO: Se muestra si no hay suscripciones -->
+    <div class="col-12 text-center mt-5" *ngIf="subscriptions.length === 0">
+      <div class="alert alert-light shadow-sm p-5">
+        <h4 class="text-muted">No tienes suscripciones activas</h4>
+        <p>Agrega tu primera suscripción para que te avisemos antes de pagar.</p>
+        <button class="btn btn-outline-primary mt-2" routerLink="/subscriptions/new">Crear ahora</button>
+      </div>
+    </div>
+
+    <!-- LISTA DE TARJETAS: Se repite por cada suscripción -->
+    <div class="col-md-4 mb-4" *ngFor="let sub of subscriptions">
+      <div class="card h-100 shadow-sm border-0 hover-effect">
+        
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <!-- Nombre del servicio -->
+            <h5 class="card-title fw-bold text-dark">{{ sub.name }}</h5>
+            
+            <!-- Badge de frecuencia -->
+            <span class="badge rounded-pill" 
+                  [ngClass]="{
+                    'text-bg-success': sub.frequency === 'MONTHLY',
+                    'text-bg-warning': sub.frequency === 'YEARLY',
+                    'text-bg-info': sub.frequency === 'WEEKLY'
+                  }">
+              {{ sub.frequency }}
+            </span>
+          </div>
+
+          <!-- Precio Grande -->
+          <h2 class="card-text text-primary fw-bold my-3">
+            <!-- Pipe de moneda: Formatea automágicamente (ej: $15.00) -->
+            {{ sub.price | currency:sub.currency:'symbol':'1.0-2' }} 
+            <small class="fs-6 text-muted">{{ sub.currency }}</small>
+          </h2>
+
+          <hr>
+
+          <!-- Fechas -->
+          <div class="d-flex justify-content-between align-items-end">
+            <div>
+              <p class="text-muted small mb-0">Próximo vencimiento:</p>
+              <!-- Pipe de fecha: La pone bonita (ej: Dec 19, 2025) -->
+              <strong class="text-danger">
+                {{ sub.nextBillingDate | date:'mediumDate' }}
+              </strong>
+            </div>
+
+            <!-- Botón Eliminar -->
+            <button class="btn btn-outline-danger btn-sm" (click)="deleteSubscription(sub.id!)" title="Eliminar">
+              🗑️
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

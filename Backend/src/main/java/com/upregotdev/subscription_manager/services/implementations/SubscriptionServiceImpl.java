@@ -60,7 +60,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         // Nota: Asegúrate que tu repositorio tenga este método.
         // Si usas JPA estándar suele ser findByUser(user) o findByUserId(id)
-        List<Subscription> subscriptions = subscriptionRepository.findByUserId(user.getId());
+        List<Subscription> subscriptions = subscriptionRepository.findByUser_Id(user.getId());
 
         return subscriptions.stream()
                 .map(this::mapToDto)
@@ -73,7 +73,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        List<Subscription> subs = subscriptionRepository.findByUserId(user.getId());
+        List<Subscription> subs = subscriptionRepository.findByUser_Id(user.getId());
 
         // LÓGICA 3: Normalización de Precios (Estadística real)
         return subs.stream()
