@@ -4,11 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #F5F5F7; /* Fondo gris Apple */
+  background-color: #F5F5F7; 
   padding: 20px;
 }
 
-/* Tarjeta estilo iOS */
 .auth-card {
   background: white;
   width: 100%;
@@ -37,7 +36,6 @@
   margin-bottom: 6px;
 }
 
-/* Inputs estilo Apple (Gris claro sin bordes duros) */
 .apple-input {
   background-color: #F5F5F7;
   border: 1px solid transparent;

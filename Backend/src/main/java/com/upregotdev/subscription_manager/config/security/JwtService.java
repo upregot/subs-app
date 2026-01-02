@@ -18,7 +18,6 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    // Inyectamos valores desde application.properties
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
@@ -30,7 +29,7 @@ public class JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        // Agregamos roles automáticamente
+
         extraClaims.put("roles", userDetails.getAuthorities());
 
         return buildToken(extraClaims, userDetails, jwtExpiration);

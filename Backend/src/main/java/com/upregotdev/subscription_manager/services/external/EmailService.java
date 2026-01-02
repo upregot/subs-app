@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j // Lombok para logs
+@Slf4j
 public class EmailService {
 
     private final JavaMailSender mailSender;
 
-    @Async // IMPORTANTE: Ejecuta esto en un hilo separado. El usuario no espera.
+    @Async
     public void sendHtmlEmail(String to, String subject, String htmlBody) {
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -24,8 +24,8 @@ public class EmailService {
 
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(htmlBody, true); // true indica que es HTML
-            // helper.setFrom("noreply@tuapp.com"); // Opcional
+            helper.setText(htmlBody, true);
+
 
             mailSender.send(message);
             log.info("Correo eenviado a: {}", to);

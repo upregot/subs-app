@@ -16,6 +16,6 @@ public class SubscriptionResponse {
     private String frequency;
     private LocalDate startDate;
     private LocalDate nextBillingDate;
-    private String ownerName; // En lugar del objeto User entero, solo mandamos el nombre
-    private String logoUrl;
+    private String ownerName;
+    String logoUrl;
 }

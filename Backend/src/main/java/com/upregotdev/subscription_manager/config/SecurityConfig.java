@@ -38,7 +38,6 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
-    // Si tienes UserDetailsService definido en ApplicationConfig, inyéctalo aquí:
     private final UserDetailsService userDetailsService;
 
     @Bean

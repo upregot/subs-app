@@ -47,7 +47,7 @@
   transition: all 0.2s;
 
   &:hover {
-    background-color: rgba(0, 113, 227, 0.08); /* Fondo azul muy suave al pasar mouse */
+    background-color: rgba(0, 113, 227, 0.08); 
     color: #0077ED;
   }
   
@@ -56,7 +56,6 @@
   }
 }
 
-/* Ajuste del contenido para que no se pegue al navbar */
 main {
   min-height: 100vh;
 }

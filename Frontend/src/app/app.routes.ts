@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SubscriptionFormComponent } from './pages/subscription-form/subscription-form'; // <--- Importar
+import { SubscriptionFormComponent } from './pages/subscription-form/subscription-form';
 import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
@@ -13,7 +13,6 @@ export const routes: Routes = [
     component: DashboardComponent, 
     canActivate: [authGuard] 
   },
-  // NUEVA RUTA PROTEGIDA
   { 
     path: 'subscriptions/new', 
     component: SubscriptionFormComponent, 

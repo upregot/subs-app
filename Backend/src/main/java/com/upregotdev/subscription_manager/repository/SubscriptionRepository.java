@@ -11,10 +11,8 @@ import java.util.List;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
 
     // Buscar todas las suscripciones de un usuario específico
-    // SQL: SELECT * FROM subscriptions WHERE user_id = ?
     List<Subscription> findByUser_Id(Long userId);
 
-    // Opcional: Para el futuro, buscar las que vencen antes de X fecha (para los emails)
     // List<Subscription> findByNextBillingDateBefore(LocalDate date);
     List<Subscription> findByNextBillingDate(LocalDate date);
 

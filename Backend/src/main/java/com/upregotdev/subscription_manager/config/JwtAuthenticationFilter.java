@@ -47,8 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // 4. Validar token
             if (jwtService.isTokenValid(jwt, userDetails)) {
-                // AQUÍ ES DONDE SUCEDE LA MAGIA:
-                // Creamos el objeto de autenticación con los ROLES (Authorities) del usuario
+
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

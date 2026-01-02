@@ -21,7 +21,7 @@ public class NotificationScheduler {
     private final SubscriptionRepository subscriptionRepository;
     private final EmailService emailService;
 
-    @Value("${app.notifications.days-before}") // Leemos el '3' del properties
+    @Value("${app.notifications.days-before}")
     private int daysBefore;
 
     // Cron: Se ejecuta todos los días a las 9:00 AM
@@ -51,7 +51,7 @@ public class NotificationScheduler {
         String userEmail = sub.getUser().getEmail();
         String subject = "⚠️ Recordatorio: " + sub.getName() + " se renueva pronto";
 
-        // Un HTML simple pero limpio para el portafolio
+
         String htmlContent = String.format("""
             <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 5px;">
                 <h2 style="color: #d9534f;">Recordatorio de Pago</h2>

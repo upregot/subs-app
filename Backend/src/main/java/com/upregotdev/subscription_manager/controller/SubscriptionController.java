@@ -20,10 +20,8 @@ public class SubscriptionController {
 
     // Crear una suscripción
     @PostMapping
-    // CAMBIO: Ahora devuelve ResponseEntity<SubscriptionResponse>
     public ResponseEntity<SubscriptionResponse> create(@Valid @RequestBody SubscriptionRequest request, Principal principal) {
 
-        // El servicio ya nos devuelve el DTO limpio (sin password)
         SubscriptionResponse newSub = subscriptionService.createSubscription(request, principal.getName());
         return ResponseEntity.ok(newSub);
     }
@@ -36,7 +34,6 @@ public class SubscriptionController {
         List<SubscriptionResponse> misSuscripciones = subscriptionService.getMySubscriptions(principal.getName());
         return ResponseEntity.ok(misSuscripciones);
     }
-    // En SubscriptionController.java
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id, Principal principal) {

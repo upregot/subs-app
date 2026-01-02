@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SubscriptionService {
 
-    // Cambiamos 'Subscription' por 'SubscriptionResponse' aquí también
+
     SubscriptionResponse createSubscription(SubscriptionRequest request, String username);
 
     List<SubscriptionResponse> getMySubscriptions(String username);

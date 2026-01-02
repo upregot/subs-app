@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <--- Vital para los inputs
+import { FormsModule } from '@angular/forms'; 
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth'; 
 
@@ -16,7 +16,6 @@ export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Objeto que coincide con tu Backend (RegisterRequest)
   registerData = {
     username: '',
     email: '',

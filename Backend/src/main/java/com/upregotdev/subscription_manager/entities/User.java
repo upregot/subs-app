@@ -33,13 +33,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // --- CORRECCIÓN AQUÍ ---
-    @OneToMany(mappedBy = "user")
-    @ToString.Exclude // <--- VITAL: Evita error LazyInitialization y bucles en logs
-    // @JsonIgnore    // <--- OPCIONAL: Descomenta esto si NO quieres que Swagger muestre la lista de suscripciones al ver el usuario.
-    private List<Subscription> subscriptions;
 
-    // --- MÉTODOS DE USER DETAILS ---
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+        private List<Subscription> subscriptions;
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

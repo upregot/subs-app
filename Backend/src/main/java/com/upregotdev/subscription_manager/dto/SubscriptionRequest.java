@@ -25,7 +25,6 @@ public class SubscriptionRequest {
     @NotNull(message = "La frecuencia es obligatoria")
     private Frequency frequency;
 
-    // Solo validamos que no sea nulo, no podemos validar "pasado/futuro" fácilmente aquí sin lógica extra
     @NotNull(message = "La fecha de inicio es obligatoria")
     private LocalDate startDate;
 

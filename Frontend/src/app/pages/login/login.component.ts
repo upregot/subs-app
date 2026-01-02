@@ -7,7 +7,7 @@ import { AuthService } from '../../services/auth/auth'
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink], // <--- Importamos FormsModule aquí
+  imports: [CommonModule, FormsModule, RouterLink], 
   templateUrl: './login.html' ,
   styleUrl: './login.scss'
 })
@@ -30,9 +30,7 @@ export class LoginComponent {
     this.authService.login(this.loginData).subscribe({
       next: (response: any) => {
         console.log('Login exitoso:', response);
-        // Guardamos el token (esto lo mejoraremos luego)
         localStorage.setItem('token', response.token);
-        // Redirigimos al dashboard
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {

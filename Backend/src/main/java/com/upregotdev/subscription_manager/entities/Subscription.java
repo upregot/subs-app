@@ -21,16 +21,14 @@ public class Subscription {
     private Long id;
 
     @Column(nullable = false)
-    private String name; // Ej: Netflix
-
+    private String name;
     @Column(nullable = false)
-    private BigDecimal price; // Siempre usa BigDecimal para dinero, nunca Double
-
+    private BigDecimal price;
     @Column(length = 3)
     private String currency;
 
     @Enumerated(EnumType.STRING)
-    private Frequency frequency; // MONTHLY, YEARLY...
+    private Frequency frequency;
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -44,8 +42,8 @@ public class Subscription {
 
     // Muchas Suscripciones pertenecen a UN Usuario
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false) // FK en la base de datos
-    @ToString.Exclude // IMPORTANTE: Evita que al imprimir la suscripción se imprima el usuario y cause un bucle infinito
+    @JoinColumn(name = "user_id", nullable = false)
+    @ToString.Exclude
     @JsonIgnore
     private User user;
 }
