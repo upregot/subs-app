@@ -2,9 +2,8 @@
 
 > Una aplicación Full Stack para gestionar suscripciones recurrentes y recibir alertas de pago por correo electrónico antes de que te cobren.
 
-![Dashboard Preview](<img width="1600" height="761" alt="image" src="https://github.com/user-attachments/assets/f7b78993-d607-4c7a-a84a-4b4f50314d96" />
-)
-*(Reemplaza esto con tu captura del dashboard)*
+<img width="1600" height="761" alt="image" src="https://github.com/user-attachments/assets/4bd2689e-40a4-48a1-9c3d-5678e9a258f0" />
+
 
 ## 🚀 Características Principales
 
@@ -61,13 +60,11 @@ El proyecto utiliza una arquitectura de microservicios simplificada en contenedo
 *   **Database (Puerto 5432):** Persistencia de datos con PostgreSQL.
 
 ## 📸 Galería
-
-| Login | Crear Suscripción | Alerta Email |
-|-------|-------------------|--------------|
-| ![Login](<img width="1600" height="757" alt="image" src="https://github.com/user-attachments/assets/7533423b-4fba-467e-89ac-7a369e9d3bcd" />
-) | ![Form](<img width="1600" height="757" alt="image" src="https://github.com/user-attachments/assets/41eaf84b-2ed4-4070-bf61-3ce5f297d172" />
-) | ![Email](<img width="1600" height="760" alt="image" src="https://github.com/user-attachments/assets/578232bc-ef57-4506-8d28-9150615d94fd" />
-) |
-
+* login
+  <img width="1600" height="757" alt="image" src="https://github.com/user-attachments/assets/ab138d52-4b8f-40a3-b2bc-b97010a2a0b6" />
+* form
+  <img width="1600" height="757" alt="image" src="https://github.com/user-attachments/assets/6331d649-f5c6-4151-9dca-214878527396" />
+* mail
+  <img width="1600" height="760" alt="image" src="https://github.com/user-attachments/assets/1546c9cb-c3a1-4757-a2b5-c5aeecb2cd64" />
 ---
 Desarrollado con ❤️ por upregot!
