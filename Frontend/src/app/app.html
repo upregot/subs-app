@@ -1,11 +1,28 @@
-<!-- Barra de navegación simple (luego la mejoramos) -->
-<nav class="navbar navbar-dark bg-dark mb-4">
-  <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">Subscription Manager</span>
-  </div>
-</nav>
+<!-- Navbar estilo Apple (Glassmorphism) -->
+<header class="apple-navbar">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center h-100">
+      
+      <!-- Logo y Nombre -->
+      <a class="nav-brand d-flex align-items-center gap-2" routerLink="/dashboard">
+        <!-- Ajusta el width si tu logo es muy grande -->
+        <img src="images/logo.svg" alt="Logo" width="32" height="32">
+        <span class="brand-text">Subscription Manager</span>
+      </a>
 
-<!-- AQUÍ es donde Angular "dibuja" el Login, el Dashboard, etc. -->
-<div class="container">
+      <!-- Botón Salir -->
+      <button *ngIf="authService.isLoggedIn()" 
+              (click)="logout()" 
+              class="logout-btn">
+        <span>Salir</span>
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- Contenido Principal -->
+<main>
   <router-outlet></router-outlet>
-</div>
+</main>

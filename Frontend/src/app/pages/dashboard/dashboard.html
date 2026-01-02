@@ -1,70 +1,79 @@
-<div class="container mt-4">
-  
-  <!-- CABECERA: Título y Botón -->
-  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
-    <h2>📊 Mis Suscripciones</h2>
-    <button class="btn btn-primary shadow-sm" routerLink="/subscriptions/new">
-      <i class="bi bi-plus-lg"></i> + Nueva Suscripción
+<div class="container mt-5 pb-5">
+
+  <!-- CABECERA: Limpia y con tipografía grande -->
+  <div class="d-flex justify-content-between align-items-end mb-5">
+    <div>
+      <h1 class="fw-bold m-0" style="letter-spacing: -1px;">Mis Suscripciones</h1>
+      <p class="text-muted m-0" style="font-size: 1.1rem;">Gestiona tus gastos recurrentes</p>
+    </div>
+    
+    <button class="btn btn-primary ios-btn shadow-sm" routerLink="/subscriptions/new">
+      <i class="bi bi-plus-lg me-1"></i> Nueva
     </button>
   </div>
 
-  <div class="row">
-    
-    <!-- ESTADO VACÍO: Se muestra si no hay suscripciones -->
-    <div class="col-12 text-center mt-5" *ngIf="subscriptions.length === 0">
-      <div class="alert alert-light shadow-sm p-5">
-        <h4 class="text-muted">No tienes suscripciones activas</h4>
-        <p>Agrega tu primera suscripción para que te avisemos antes de pagar.</p>
-        <button class="btn btn-outline-primary mt-2" routerLink="/subscriptions/new">Crear ahora</button>
+  <div class="row g-4"> <!-- g-4 para más espacio entre tarjetas -->
+
+    <!-- ESTADO VACÍO -->
+    <div class="col-12" *ngIf="subscriptions.length === 0">
+      <div class="ios-card text-center p-5">
+        <div class="mb-3 text-muted" style="font-size: 3rem;">📱</div>
+        <h3 class="fw-bold">Sin suscripciones</h3>
+        <p class="text-muted">Añade tu primer servicio para empezar.</p>
+        <button class="btn btn-link text-decoration-none p-0" routerLink="/subscriptions/new">Crear ahora &rarr;</button>
       </div>
     </div>
 
-    <!-- LISTA DE TARJETAS: Se repite por cada suscripción -->
-    <div class="col-md-4 mb-4" *ngFor="let sub of subscriptions">
-      <div class="card h-100 shadow-sm border-0 hover-effect">
+    <!-- TARJETAS ESTILO APPLE -->
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let sub of subscriptions">
+      <div class="ios-card h-100 d-flex flex-column justify-content-between">
         
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <!-- Nombre del servicio -->
-            <h5 class="card-title fw-bold text-dark">{{ sub.name }}</h5>
+        <!-- Parte Superior -->
+        <div>
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold m-0 text-capitalize">{{ sub.name }}</h5>
             
-            <!-- Badge de frecuencia -->
-            <span class="badge rounded-pill" 
+            <!-- Badge estilo iOS (Pastilla suave) -->
+            <span class="ios-badge"
                   [ngClass]="{
-                    'text-bg-success': sub.frequency === 'MONTHLY',
-                    'text-bg-warning': sub.frequency === 'YEARLY',
-                    'text-bg-info': sub.frequency === 'WEEKLY'
+                    'badge-monthly': sub.frequency === 'MONTHLY',
+                    'badge-yearly': sub.frequency === 'YEARLY',
+                    'badge-weekly': sub.frequency === 'WEEKLY',
+                    'badge-onetime': sub.frequency === 'ONE_TIME'
                   }">
               {{ sub.frequency }}
             </span>
           </div>
 
-          <!-- Precio Grande -->
-          <h2 class="card-text text-primary fw-bold my-3">
-            <!-- Pipe de moneda: Formatea automágicamente (ej: $15.00) -->
-            {{ sub.price | currency:sub.currency:'symbol':'1.0-2' }} 
-            <small class="fs-6 text-muted">{{ sub.currency }}</small>
-          </h2>
+          <!-- Precio -->
+          <div class="price-container">
+            <span class="currency text-muted">{{ sub.currency }}</span>
+            <span class="amount">{{ sub.price | number:'1.0-2' }}</span>
+          </div>
+        </div>
 
-          <hr>
-
-          <!-- Fechas -->
-          <div class="d-flex justify-content-between align-items-end">
-            <div>
-              <p class="text-muted small mb-0">Próximo vencimiento:</p>
-              <!-- Pipe de fecha: La pone bonita (ej: Dec 19, 2025) -->
-              <strong class="text-danger">
-                {{ sub.nextBillingDate | date:'mediumDate' }}
-              </strong>
+        <!-- Parte Inferior (Separador sutil) -->
+        <div class="mt-4 pt-3 border-top border-light">
+          <div class="d-flex justify-content-between align-items-center">
+            
+            <!-- Fecha -->
+            <div *ngIf="sub.nextBillingDate">
+              <span class="d-block text-muted caption">Próximo cobro</span>
+              <span class="fw-semibold date-text">
+                {{ sub.nextBillingDate | date:'d MMM y' }}
+              </span>
+            </div>
+            <div *ngIf="!sub.nextBillingDate">
+              <span class="text-muted caption">Pago único completado</span>
             </div>
 
-            <!-- Botón Eliminar -->
-            <button class="btn btn-outline-danger btn-sm" (click)="deleteSubscription(sub.id!)" title="Eliminar">
-              🗑️
+            <!-- Botón Eliminar (Circular) -->
+            <button class="btn-icon-delete" (click)="deleteSubscription(sub.id!)" title="Eliminar">
+              <i class="bi bi-trash3-fill"></i>
             </button>
           </div>
-
         </div>
+
       </div>
     </div>
 

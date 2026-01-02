@@ -1,73 +1,51 @@
-<!-- Agregamos #subForm="ngForm" para acceder al estado del formulario -->
-<form (ngSubmit)="onSubmit()" #subForm="ngForm">
-        
-  <!-- Nombre -->
-<div class="mb-3">
-  <label class="form-label">Nombre del Servicio</label>
-  
-  <!-- FÍJATE AQUÍ: Agregué #name="ngModel" -->
-  <input 
-    type="text" 
-    class="form-control" 
-    [(ngModel)]="subData.name" 
-    name="name" 
-    #name="ngModel" 
-    placeholder="Ej: Netflix" 
-    required 
-    minlength="2">
-  
-  <!-- Ahora sí funcionará porque "name" ya existe gracias a la línea de arriba -->
-  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger small">
-    El nombre es obligatorio.
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="form-card shadow-sm">
+    <header class="mb-4">
+      <h2 class="fw-bold">Nueva suscripción</h2>
+      <p class="text-muted">Introduce los detalles del servicio.</p>
+    </header>
+
+    <form (ngSubmit)="onSubmit()" #subForm="ngForm">
+      <div class="form-section">
+        <label>Nombre del servicio</label>
+        <input type="text" class="form-control" [(ngModel)]="subData.name" name="name" placeholder="Netflix, Gym, etc." required #name="ngModel">
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-section">
+          <label>Precio</label>
+          <input type="number" class="form-control" [(ngModel)]="subData.price" name="price" required min="0.01">
+        </div>
+        <div class="col-md-6 form-section">
+          <label>Moneda</label>
+          <select class="form-select" [(ngModel)]="subData.currency" name="currency">
+            <option value="USD">USD</option>
+            <option value="ARS">ARS</option>
+            <option value="EUR">EUR</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-section">
+          <label>Frecuencia</label>
+          <select class="form-select" [(ngModel)]="subData.frequency" name="frequency">
+            <option value="MONTHLY">Mensual</option>
+            <option value="YEARLY">Anual</option>
+            <option value="WEEKLY">Semanal</option>
+            <option value="ONE_TIME">Único</option>
+          </select>
+        </div>
+        <div class="col-md-6 form-section">
+          <label>Fecha de inicio</label>
+          <input type="date" class="form-control" [(ngModel)]="subData.startDate" name="startDate" required>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-3 mt-4">
+        <button type="button" class="btn-cancel" routerLink="/dashboard">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!subForm.valid">Guardar</button>
+      </div>
+    </form>
   </div>
 </div>
-
-  <div class="row">
-    <!-- Precio -->
-    <div class="col-md-6 mb-3">
-      <label class="form-label">Precio</label>
-      <input type="number" class="form-control" [(ngModel)]="subData.price" name="price" placeholder="0.00" required min="0.01">
-    </div>
-
-    <!-- ... (El resto de inputs igual) ... -->
-    <div class="col-md-6 mb-3">
-        <label class="form-label">Moneda</label>
-        <select class="form-select" [(ngModel)]="subData.currency" name="currency">
-          <option value="USD">USD - Dólar</option>
-          <option value="EUR">EUR - Euro</option>
-          <option value="ARS">ARS - Peso Arg</option>
-          <option value="MXN">MXN - Peso Mex</option>
-        </select>
-    </div>
-  </div>
-
-  <div class="row">
-      <!-- Frecuencia -->
-      <div class="col-md-6 mb-3">
-        <label class="form-label">Frecuencia</label>
-        <select class="form-select" [(ngModel)]="subData.frequency" name="frequency">
-          <option value="MONTHLY">Mensual</option>
-          <option value="YEARLY">Anual</option>
-          <option value="WEEKLY">Semanal</option>
-          <option value="ONE_TIME">Pago Único</option>
-        </select>
-      </div>
-
-      <!-- Fecha -->
-      <div class="col-md-6 mb-3">
-        <label class="form-label">Fecha de Inicio</label>
-        <input type="date" class="form-control" [(ngModel)]="subData.startDate" name="startDate" required>
-      </div>
-  </div>
-
-  <!-- Botones -->
-  <div class="d-flex justify-content-end gap-2 mt-3">
-    <button type="button" class="btn btn-secondary" routerLink="/dashboard">Cancelar</button>
-    
-    <!-- DESHABILITAMOS EL BOTÓN SI EL FORMULARIO ES INVÁLIDO -->
-    <button type="submit" class="btn btn-success" [disabled]="!subForm.form.valid">
-      Guardar Suscripción
-    </button>
-  </div>
-
-</form>

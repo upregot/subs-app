@@ -1,0 +1,62 @@
+/* --- NAVBAR ESTILO APPLE --- */
+.apple-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* El famoso efecto vidrio de Apple */
+  background-color: rgba(255, 255, 255, 0.75); 
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  
+  /* Borde sutil abajo */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  
+  height: 64px; /* Altura estándar */
+  width: 100%;
+}
+
+.nav-brand {
+  text-decoration: none;
+  transition: opacity 0.2s;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.brand-text {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #1d1d1f; /* Negro Apple */
+  letter-spacing: -0.01em;
+}
+
+/* --- BOTÓN SALIR DISCRETO --- */
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: #0071e3; /* Azul Apple */
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 113, 227, 0.08); /* Fondo azul muy suave al pasar mouse */
+    color: #0077ED;
+  }
+  
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+/* Ajuste del contenido para que no se pegue al navbar */
+main {
+  min-height: 100vh;
+}

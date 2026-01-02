@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- BASE APPLE --- */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #F5F5F7;
+  color: #1D1D1F;
+}
+
+/* Estilo para todos los INPUTS de la app */
+input.form-control, select.form-select {
+  background-color: #F5F5F7; 
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+    outline: none;
+  }
+}
+
+.btn-primary {
+  background-color: #0071e3;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 24px;
+  font-weight: 600;
+  &:disabled { background-color: #bae0ff; }
+}

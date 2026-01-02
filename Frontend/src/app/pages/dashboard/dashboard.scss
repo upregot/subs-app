@@ -1,0 +1,148 @@
+/* --- TARJETAS --- */
+/* --- TARJETA BLANCA LIMPIA --- */
+.ios-card {
+  background: #FFFFFF;
+  border-radius: 20px; /* Curvatura iOS */
+  padding: 24px;
+  /* Sombra muy sutil, casi invisible, que crece al hover */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02); 
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); /* Sombra difusa al levantar */
+  }
+}
+
+/* --- PRECIO ESTILIZADO --- */
+.price-container {
+  display: flex;
+  align-items: baseline; /* Alinea el texto en la base */
+  gap: 4px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.currency {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #86868b; /* Gris medio */
+  text-transform: uppercase;
+}
+
+.amount {
+  font-size: 2.5rem; /* Número grande */
+  font-weight: 700;
+  color: #1d1d1f; /* Negro Apple (no es negro puro) */
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.amount {
+  font-size: 2.2rem;
+  font-weight: 700; /* San Francisco Bold */
+  letter-spacing: -0.03em; /* Kerning ajustado */
+  color: #1D1D1F;
+}
+
+.currency {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #86868b;
+  text-transform: uppercase;
+}
+
+/* --- BOTÓN PRINCIPAL (Estilo App Store) --- */
+/* --- BOTÓN AZUL APPLE (Arreglado) --- */
+.ios-btn {
+  background-color: #0071e3 !important; /* El !important fuerza el color sobre Bootstrap */
+  color: #ffffff !important;
+  border: none;
+  border-radius: 980px; /* Redondeado completo */
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 6px rgba(0, 113, 227, 0.2); /* Sombra azulada suave */
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  &:hover {
+    background-color: #0077ED !important;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 113, 227, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* --- BADGES (Etiquetas suaves) --- */
+.ios-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Colores de badges estilo iOS System Colors */
+.badge-monthly { background-color: #e3f2fd; color: #0071e3; }
+.badge-yearly  { background-color: #fff3e0; color: #ff9500; } /* Orange */
+.badge-weekly  { background-color: #e8f5e9; color: #34c759; } /* Green */
+.badge-onetime { background-color: #f5f5f7; color: #86868b; } /* Gray */
+
+/* --- TEXTOS --- */
+.caption {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.date-text {
+  font-size: 0.95rem;
+  color: #1d1d1f;
+}
+
+/* --- BOTÓN ELIMINAR (Icono sutil) --- */
+.btn-icon-delete {
+  background: #F5F5F7;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #86868b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #ffe5e5;
+    color: var(--apple-red);
+    transform: scale(1.1);
+  }
+  /* --- BADGES (Etiquetas Pastel) --- */
+.ios-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Colores suaves */
+.badge-monthly { background-color: #e3f2fd; color: #0071e3; } /* Azul suave */
+.badge-yearly  { background-color: #fff8e1; color: #ff9500; } /* Naranja suave */
+.badge-weekly  { background-color: #e8f5e9; color: #34c759; } /* Verde suave */
+.badge-onetime { background-color: #f2f2f7; color: #86868b; } /* Gris suave */
+}

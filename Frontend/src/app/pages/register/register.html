@@ -1,1 +1,71 @@
-<p>register works!</p>
+<div class="auth-container">
+  
+  <div class="auth-card fade-in">
+    <!-- Cabecera con Logo -->
+    <div class="text-center mb-4">
+      <img src="images/logo.svg" alt="Logo" width="50" height="50" class="mb-3">
+      <h2 class="fw-bold title">Crear cuenta</h2>
+      <p class="text-muted subtitle">Únete y controla tus gastos.</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #regForm="ngForm">
+      
+      <!-- Usuario -->
+      <div class="mb-3">
+        <label class="form-label">Usuario</label>
+        <input 
+          type="text" 
+          class="form-control apple-input" 
+          [(ngModel)]="registerData.username" 
+          name="username" 
+          placeholder="Ej: juanperez" 
+          required 
+          minlength="3">
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input 
+          type="email" 
+          class="form-control apple-input" 
+          [(ngModel)]="registerData.email" 
+          name="email" 
+          placeholder="nombre@ejemplo.com" 
+          required 
+          email>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="mb-4">
+        <label class="form-label">Contraseña</label>
+        <input 
+          type="password" 
+          class="form-control apple-input" 
+          [(ngModel)]="registerData.password" 
+          name="password" 
+          placeholder="••••••••" 
+          required 
+          minlength="6">
+      </div>
+
+      <!-- Botón de Acción -->
+      <button 
+        type="submit" 
+        class="btn btn-primary w-100 apple-btn mb-3" 
+        [disabled]="!regForm.form.valid">
+        Registrarse
+      </button>
+
+      <!-- Pie de página -->
+      <div class="text-center mt-3">
+        <p class="text-muted small">
+          ¿Ya tienes cuenta? 
+          <a routerLink="/login" class="auth-link">Inicia sesión</a>
+        </p>
+      </div>
+
+    </form>
+  </div>
+
+</div>

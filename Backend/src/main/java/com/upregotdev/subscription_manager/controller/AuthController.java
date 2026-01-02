@@ -12,6 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         userService.registerUser(request);
-        return ResponseEntity.ok("Usuario registrado exitosamente");
+        return ResponseEntity.ok(Collections.singletonMap("message", "Usuario registrado exitosamente"));
     }
 
     // NUEVO: Endpoint de Login

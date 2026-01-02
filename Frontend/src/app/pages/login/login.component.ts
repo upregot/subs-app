@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <--- Necesario para los inputs
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth' // Asegúrate de la ruta
+import { FormsModule } from '@angular/forms'; 
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth' 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule], // <--- Importamos FormsModule aquí
-  templateUrl: './login.html',
+  imports: [CommonModule, FormsModule, RouterLink], // <--- Importamos FormsModule aquí
+  templateUrl: './login.html' ,
   styleUrl: './login.scss'
 })
 export class LoginComponent {
