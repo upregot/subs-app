@@ -1,0 +1,42 @@
+services:
+  # 1. BASE DE DATOS
+  db:
+    image: postgres:16-alpine
+    container_name: subscription_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456 # Ojo, debe coincidir con lo que pongas abajo
+      POSTGRES_DB: subscription_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. BACKEND (Spring Boot)
+  api:
+    build: ./Backend
+    container_name: subscription_api
+    ports:
+      - "8080:8080"
+    environment:
+      # IMPORTANTE: Aquí sobrescribimos el application.properties
+      # 'db' es el nombre del servicio de arriba, no usamos 'localhost'
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/subscription_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+      # Configuración de JWT y Email (Usa variables de entorno si quieres ser pro)
+      # APPLICATION_SECURITY_JWT_SECRET_KEY: ...
+    depends_on:
+      - db
+
+  # 3. FRONTEND (Angular + Nginx)
+  ui:
+    build: ./Frontend
+    container_name: subscription_ui
+    ports:
+      - "80:80" # El frontend correrá en el puerto 80 (estándar web)
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
