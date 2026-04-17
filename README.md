@@ -67,4 +67,4 @@ El proyecto utiliza una arquitectura de microservicios simplificada en contenedo
 * mail
   <img width="1600" height="760" alt="image" src="https://github.com/user-attachments/assets/1546c9cb-c3a1-4757-a2b5-c5aeecb2cd64" />
 ---
-Desarrollado con ❤️ por upregot!
+Desarrollado por ulises.
