@@ -53,7 +53,7 @@
 
 ## 🏗️ Arquitectura
 
-El proyecto utiliza una arquitectura de microservicios simplificada en contenedores:
+El proyecto utiliza despliegue dockerizado con separación de servicios:
 
 *   **Frontend (Puerto 80):** Servido por Nginx. Consume la API REST.
 *   **Backend (Puerto 8080):** Expone endpoints REST y maneja la lógica de negocio.
