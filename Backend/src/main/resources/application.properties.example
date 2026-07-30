@@ -16,10 +16,10 @@ spring.jpa.properties.hibernate.format_sql=true
 spring.security.user.name=TU_USUARIO_ADMIN
 spring.security.user.password=TU_PASSWORD_ADMIN
 
-server.error.include-message=always
-server.error.include-binding-errors=always
+server.error.include-message=never
+server.error.include-binding-errors=never
 # server.error.include-stacktrace=always
-server.error.include-exception=true
+server.error.include-exception=false
 
 application.security.jwt.secret-key=TU_SECRETO_JWT_AQUI
 # 86400000 milisegundos = 1 dia
