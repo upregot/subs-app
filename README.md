@@ -33,9 +33,7 @@
 *   Docker & Docker Compose
 *   Nginx (Reverse Proxy)
 
-##  Cómo ejecutarlo (Docker)
-
-¡Es muy fácil! No necesitas instalar Java, Node ni Postgres. Solo necesitas Docker.
+##  Cómo ejecutarlo con Docker.
 
 1.  **Clonar el repositorio:**
     ```bash
