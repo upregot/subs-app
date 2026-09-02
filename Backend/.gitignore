@@ -34,3 +34,7 @@ build/
 
 ### Custom Secrets ###
 application.properties
+
+.env
+*.env
+.env.*

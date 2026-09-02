@@ -4,37 +4,49 @@ services:
     image: postgres:16-alpine
     container_name: subscription_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456 # Ojo, debe coincidir con lo que pongas abajo
-      POSTGRES_DB: subscription_db
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      POSTGRES_DB: ${POSTGRES_DB:-subscription_db}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-subscription_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   # 2. BACKEND (Spring Boot)
   api:
-    build: ./Backend
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
     container_name: subscription_api
     ports:
       - "8080:8080"
     environment:
-      # IMPORTANTE: Aquí sobrescribimos el application.properties
-      # 'db' es el nombre del servicio de arriba, no usamos 'localhost'
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/subscription_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 123456
-      # Configuración de JWT y Email (Usa variables de entorno si quieres ser pro)
-      # APPLICATION_SECURITY_JWT_SECRET_KEY: ...
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-subscription_db}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-sandbox.smtp.mailtrap.io}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-2525}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:-TU_USUARIO_MAILTRAP}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:-TU_PASSWORD_MAILTRAP}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   # 3. FRONTEND (Angular + Nginx)
   ui:
-    build: ./Frontend
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
     container_name: subscription_ui
     ports:
-      - "80:80" # El frontend correrá en el puerto 80 (estándar web)
+      - "80:80"
     depends_on:
       - api
 

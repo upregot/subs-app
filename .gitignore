@@ -1,0 +1,17 @@
+# Environment & Secrets
+.env
+*.env
+.env.*
+application.properties
+application-*.properties
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Build Outputs
+target/
+dist/
+node_modules/

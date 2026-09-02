@@ -1,9 +1,15 @@
 services:
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:16-alpine'
+    container_name: subscription_db_backend
     environment:
-      - 'POSTGRES_DB=subscription_db'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_DB=${POSTGRES_DB:-subscription_db}'
+      - 'POSTGRES_USER=${POSTGRES_USER:-postgres}'
+      - 'POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-123456}'
     ports:
       - '5432:5432'
+    volumes:
+      - postgres_backend_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_backend_data:
