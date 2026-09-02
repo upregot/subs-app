@@ -33,20 +33,26 @@
 *   Docker & Docker Compose
 *   Nginx (Reverse Proxy)
 
-##  Cómo ejecutarlo con Docker.
+##  Cómo ejecutarlo con Docker
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone https://github.com/TU_USUARIO/subscription-manager.git
-    cd subscription-manager
+    git clone https://github.com/upregot/subs-app.git
+    cd subs-app
     ```
 
-2.  **Arrancar la aplicación:**
+2.  **Configurar variables de entorno (Opcional):**
     ```bash
-    docker-compose up --build
+    cp docker/.env.example docker/.env
     ```
 
-3.  **Acceder:**
+3.  **Arrancar la aplicación:**
+    ```bash
+    docker compose -f docker/docker-compose.yml up --build
+    ```
+    *(O alternativamente: `cd docker && docker compose up --build`)*
+
+4.  **Acceder:**
     Ve a `http://localhost` en tu navegador.
 
 
@@ -64,9 +70,10 @@ subs-app/
 │   ├── Dockerfile           # Dockerfile (Build Angular + Nginx server)
 │   ├── nginx.conf           # Configuración del servidor Nginx (Reverse Proxy)
 │   └── package.json         # Dependencias Node.js
-├── .env.example             # Plantilla de variables de entorno para desarrollo/docker
+├── docker/                  # Orquestación y configuración de infraestructura
+│   ├── docker-compose.yml   # Orquestación completa (Database + Backend + Frontend)
+│   └── .env.example         # Plantilla de variables de entorno para Docker
 ├── .gitignore               # Exclusiones de Git globales
-├── docker-compose.yml       # Orquestación completa (Database + Backend + Frontend)
 ├── LICENSE                  # Licencia del proyecto
 └── README.md                # Documentación principal
 ```

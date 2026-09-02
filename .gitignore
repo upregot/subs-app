@@ -2,7 +2,11 @@
 .env
 *.env
 .env.*
+docker/.env
+docker/*.env
+docker/.env.*
 !.env.example
+!docker/.env.example
 application.properties
 application-*.properties
 

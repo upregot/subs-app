@@ -20,7 +20,7 @@ services:
   # 2. BACKEND (Spring Boot)
   api:
     build:
-      context: ./Backend
+      context: ../Backend
       dockerfile: Dockerfile
     container_name: subscription_api
     ports:
@@ -42,7 +42,7 @@ services:
   # 3. FRONTEND (Angular + Nginx)
   ui:
     build:
-      context: ./Frontend
+      context: ../Frontend
       dockerfile: Dockerfile
     container_name: subscription_ui
     ports:
