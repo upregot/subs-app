@@ -49,6 +49,28 @@
 3.  **Acceder:**
     Ve a `http://localhost` en tu navegador.
 
+
+## 📁 Estructura del Proyecto
+
+```text
+subs-app/
+├── Backend/                 # Servicio API REST (Spring Boot 3 + Java 21)
+│   ├── src/                 # Código fuente Java y recursos
+│   ├── Dockerfile           # Dockerfile optimizado (Multi-stage build & non-root)
+│   ├── compose.yaml         # Configuración Docker Compose individual para Backend
+│   └── pom.xml              # Gestión de dependencias y configuración Maven
+├── Frontend/                # Aplicación Web (Angular 17+ Standalone)
+│   ├── src/                 # Componentes, servicios y vistas Angular
+│   ├── Dockerfile           # Dockerfile (Build Angular + Nginx server)
+│   ├── nginx.conf           # Configuración del servidor Nginx (Reverse Proxy)
+│   └── package.json         # Dependencias Node.js
+├── .env.example             # Plantilla de variables de entorno para desarrollo/docker
+├── .gitignore               # Exclusiones de Git globales
+├── docker-compose.yml       # Orquestación completa (Database + Backend + Frontend)
+├── LICENSE                  # Licencia del proyecto
+└── README.md                # Documentación principal
+```
+
 ##  Arquitectura
 
 El proyecto utiliza despliegue dockerizado con separación de servicios:
